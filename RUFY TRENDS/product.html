@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Rufy Trends</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Rufy Trends <span>👜</span></div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="index.html#featured">Featured</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="cart-button" id="cart-button" type="button" aria-label="Shopping cart">
+                🛒 <span id="cart-count">0</span>
+            </button>
+            <a class="header-button" href="index.html#contact">Chat us</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail" id="product-detail">
+            <div class="product-gallery">
+                <img id="product-image" class="product-gallery-main" src="images/WhatsApp Image 2026-09-23 at 08.17.43.jpeg" alt="Product image">
+                <div class="gallery-thumbs" id="gallery-thumbs"></div>
+            </div>
+
+            <div class="product-detail-copy">
+                <p class="eyebrow dark">Featured bag</p>
+                <h1 id="product-name">Elegant Ladies Bag</h1>
+                <div class="detail-price" id="product-price">GH₵ 80</div>
+                <p id="product-description">
+                    A polished everyday statement piece designed to elevate your look with effortless elegance.
+                </p>
+
+                <ul class="product-features">
+                    <li>Premium-quality finish</li>
+                    <li>Comfortable carry design</li>
+                    <li>Perfect for work, events, and outings</li>
+                </ul>
+
+                <div class="product-actions">
+                    <button class="button" id="add-detail-cart" type="button">Add to cart</button>
+                    <a class="button secondary" href="shop.html">Continue shopping</a>
+                </div>
+
+                <div class="mini-meta">
+                    <div><strong>Category:</strong> <span id="product-category">Classic</span></div>
+                    <div><strong>Style:</strong> <span>Luxury everyday</span></div>
+                    <div><strong>Availability:</strong> <span>In stock</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside class="cart-panel" id="cart-panel" aria-live="polite">
+        <div class="cart-panel-header">
+            <h3>Your cart</h3>
+            <button class="close-cart" id="close-cart" type="button" aria-label="Close cart">×</button>
+        </div>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-panel-footer">
+            <div class="cart-summary">
+                <span>Total</span>
+                <strong id="cart-total">GH₵ 0</strong>
+            </div>
+            <button class="button" id="checkout-button" type="button">Checkout</button>
+        </div>
+    </aside>
+
+    <div class="checkout-modal-overlay" id="checkout-modal-overlay">
+        <div class="checkout-modal" aria-modal="true" role="dialog" aria-labelledby="checkout-title">
+            <div class="checkout-modal-header">
+                <h3 id="checkout-title">Complete your order</h3>
+                <button class="close-cart" id="checkout-close" type="button" aria-label="Close checkout">×</button>
+            </div>
+
+            <form id="checkout-form" class="checkout-form">
+                <div class="form-row">
+                    <label>
+                        Full name
+                        <input type="text" name="name" placeholder="Your name" required>
+                    </label>
+                </div>
+
+                <div class="form-row">
+                    <label>
+                        Phone number
+                        <input type="tel" name="phone" placeholder="024 000 0000" required>
+                    </label>
+                </div>
+
+                <div class="form-row">
+                    <label>
+                        Delivery location
+                        <input type="text" name="location" placeholder="Town / Area" required>
+                    </label>
+                </div>
+
+                <div class="form-row">
+                    <label>
+                        Notes
+                        <textarea name="notes" rows="3" placeholder="Optional order notes"></textarea>
+                    </label>
+                </div>
+
+                <div class="checkout-summary-box">
+                    <span>Order total</span>
+                    <strong id="checkout-total">GH₵ 0</strong>
+                </div>
+
+                <button class="button" type="submit">Send order on WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const products = {
+            'elegant-ladies-bag': {
+                id: 'elegant-ladies-bag',
+                name: 'Elegant Ladies Bag',
+                price: 80,
+                category: 'Classic',
+                description: 'A polished everyday statement piece designed to elevate your look with effortless elegance.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.17.43.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.21.38.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.22.50.jpeg'
+                ]
+            },
+            'classic-ladies-bag': {
+                id: 'classic-ladies-bag',
+                name: 'Classic Ladies Bag',
+                price: 150,
+                category: 'Classic',
+                description: 'Structured, sophisticated, and versatile enough to match both business and weekend looks.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.18.36 - Copy.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.30.53.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.12 (1).jpeg'
+                ]
+            },
+            'stylish-bag': {
+                id: 'stylish-bag',
+                name: 'Stylish Bag',
+                price: 200,
+                category: 'Classic',
+                description: 'A standout handbag for moments where you want your accessories to speak first.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.32.49.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.13.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.12 (2).jpeg'
+                ]
+            },
+            'luxury-tote': {
+                id: 'luxury-tote',
+                name: 'Luxury Tote',
+                price: 180,
+                category: 'Luxury',
+                description: 'An elevated tote with room for your essentials and the kind of polish that turns heads.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.21.38.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.25.31.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.29.05.jpeg'
+                ]
+            },
+            'signature-handbag': {
+                id: 'signature-handbag',
+                name: 'Signature Handbag',
+                price: 170,
+                category: 'Luxury',
+                description: 'A refined everyday luxury handbag that blends comfort with a statement silhouette.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.30.53.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.18.36.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.19.03.jpeg'
+                ]
+            },
+            'everyday-crossbody': {
+                id: 'everyday-crossbody',
+                name: 'Everyday Crossbody',
+                price: 120,
+                category: 'Everyday',
+                description: 'Lightweight, practical, and stylish for your everyday routine without sacrificing elegance.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.40.13.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.14.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.23.33.jpeg'
+                ]
+            },
+            'mini-trend-bag': {
+                id: 'mini-trend-bag',
+                name: 'Mini Trend Bag',
+                price: 110,
+                category: 'Everyday',
+                description: 'A compact look with enough room for your essentials and a strong styling impact.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.23.33.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.13 (1).jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.13 (2).jpeg'
+                ]
+            },
+            'velvet-charm': {
+                id: 'velvet-charm',
+                name: 'Velvet Charm',
+                price: 140,
+                category: 'Luxury',
+                description: 'Soft-textured sophistication for occasions that deserve a little extra glamour.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.19.03.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.20.29.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.29.33.jpeg'
+                ]
+            },
+            'fashion-satchel': {
+                id: 'fashion-satchel',
+                name: 'Fashion Satchel',
+                price: 190,
+                category: 'Luxury',
+                description: 'A bold, statement-making satchel with premium detailing and endless versatility.',
+                images: [
+                    'images/WhatsApp Image 2026-09-23 at 08.40.12.jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.12 (1).jpeg',
+                    'images/WhatsApp Image 2026-09-23 at 08.40.12 (2).jpeg'
+                ]
+            }
+        };
+
+        const CART_KEY = 'rufy-trends-cart';
+        const cartButton = document.getElementById('cart-button');
+        const cartPanel = document.getElementById('cart-panel');
+        const closeCartButton = document.getElementById('close-cart');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+        const checkoutButton = document.getElementById('checkout-button');
+        const checkoutModal = document.getElementById('checkout-modal-overlay');
+        const checkoutClose = document.getElementById('checkout-close');
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutTotal = document.getElementById('checkout-total');
+
+        function getCart() {
+            try {
+                return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            } catch (_error) {
+                return [];
+            }
+        }
+
+        function saveCart(items) {
+            localStorage.setItem(CART_KEY, JSON.stringify(items));
+        }
+
+        function updateCartDisplay() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
+
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = `GH₵ ${totalPrice}`;
+            checkoutTotal.textContent = `GH₵ ${totalPrice}`;
+
+            if (!cart.length) {
+                cartItems.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map((item) => `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.name}</strong>
+                        <span>GH₵ ${item.price} each</span>
+                    </div>
+                    <div class="cart-quantity">
+                        <button type="button" data-id="${item.id}" data-action="decrease">−</button>
+                        <span>${item.quantity}</span>
+                        <button type="button" data-id="${item.id}" data-action="increase">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openCheckoutModal() {
+            const cart = getCart();
+            if (!cart.length) return;
+            checkoutModal.classList.add('open');
+        }
+
+        function closeCheckoutModal() {
+            checkoutModal.classList.remove('open');
+        }
+
+        function addToCart(productId, productName, productPrice) {
+            const cart = getCart();
+            const existing = cart.find((item) => item.id === productId);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id: productId, name: productName, price: Number(productPrice), quantity: 1 });
+            }
+
+            saveCart(cart);
+            updateCartDisplay();
+            cartPanel.classList.add('open');
+        }
+
+        cartButton.addEventListener('click', () => {
+            const isOpen = cartPanel.classList.contains('open');
+            cartPanel.classList.toggle('open', !isOpen);
+        });
+
+        closeCartButton.addEventListener('click', () => {
+            cartPanel.classList.remove('open');
+        });
+
+        checkoutButton.addEventListener('click', () => {
+            openCheckoutModal();
+        });
+
+        checkoutClose.addEventListener('click', () => {
+            closeCheckoutModal();
+        });
+
+        checkoutModal.addEventListener('click', (event) => {
+            if (event.target === checkoutModal) {
+                closeCheckoutModal();
+            }
+        });
+
+        checkoutForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const cart = getCart();
+            if (!cart.length) return;
+
+            const formData = new FormData(checkoutForm);
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const location = formData.get('location');
+            const notes = formData.get('notes') || 'No extra notes';
+            const total = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
+            const itemsText = cart.map((item) => `${item.name} x${item.quantity} - GH₵ ${item.price * item.quantity}`).join(', ');
+            const message = `Hello Rufy Trends, I would like to place my order.%0A%0AName: ${name}%0APhone: ${phone}%0ADelivery location: ${location}%0AItems: ${itemsText}%0ATotal: GH₵ ${total}%0ANotes: ${notes}`;
+
+            window.open(`https://wa.me/233530254400?text=${message}`, '_blank');
+            closeCheckoutModal();
+            checkoutForm.reset();
+        });
+
+        cartItems.addEventListener('click', (event) => {
+            const button = event.target.closest('button');
+            if (!button) return;
+
+            const { id, action } = button.dataset;
+            const cart = getCart();
+            const item = cart.find((entry) => entry.id === id);
+            if (!item) return;
+
+            if (action === 'increase') {
+                item.quantity += 1;
+            } else if (action === 'decrease') {
+                item.quantity -= 1;
+            }
+
+            const nextCart = cart.filter((entry) => entry.quantity > 0);
+            saveCart(nextCart);
+            updateCartDisplay();
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const productKey = params.get('product') || 'elegant-ladies-bag';
+        const selectedProduct = products[productKey] || products['elegant-ladies-bag'];
+
+        document.getElementById('product-name').textContent = selectedProduct.name;
+        document.getElementById('product-price').textContent = `GH₵ ${selectedProduct.price}`;
+        document.getElementById('product-description').textContent = selectedProduct.description;
+        document.getElementById('product-category').textContent = selectedProduct.category;
+
+        const galleryThumbs = document.getElementById('gallery-thumbs');
+        const mainImage = document.getElementById('product-image');
+        mainImage.src = selectedProduct.images[0];
+
+        galleryThumbs.innerHTML = selectedProduct.images.map((image, index) => `
+            <img src="${image}" alt="${selectedProduct.name} thumbnail ${index + 1}" data-image="${image}">
+        `).join('');
+
+        galleryThumbs.addEventListener('click', (event) => {
+            const image = event.target.closest('img');
+            if (!image) return;
+            mainImage.src = image.dataset.image;
+        });
+
+        document.getElementById('add-detail-cart').addEventListener('click', () => {
+            addToCart(selectedProduct.id, selectedProduct.name, selectedProduct.price);
+        });
+
+        updateCartDisplay();
+    </script>
+</body>
+</html>
